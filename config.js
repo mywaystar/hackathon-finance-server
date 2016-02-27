@@ -1,7 +1,7 @@
 module.exports = {
   mysql: {
     host: "127.0.0.1",
-    port: undefined,
+    port: 8889,
     username: "root",
     password: "",
     database: "finance",

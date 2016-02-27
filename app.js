@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
   res.header("Access-Control-Allow-Headers", "content-Type,x-requested-with");
   next();
 });
@@ -36,6 +37,7 @@ app.use('/history', history);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log(404);
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
