@@ -2,10 +2,15 @@
 "use strict";
 
 const Sequelize = require("sequelize");
+const config = require("../config");
 
 const init_config = (req, res, next) => {
-  const sequelize = new Sequelize("finance", "root", "", {
-    host: "127.0.0.1",
+  const sequelize = new Sequelize(
+    config.mysql.database,
+    config.mysql.username,
+    config.mysql.password, {
+    host: config.mysql.host,
+    port: config.mysql.port,
     dialect: "mysql",
     pool: {
       max: 5,

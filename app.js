@@ -1,15 +1,16 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
 
-var accounts = require('./routes/accounts');
-var clients = require('./routes/clients');
-var login = require('./routes/login');
-var history = require('./routes/history');
-var mysql = require("./routes/db")
+const accounts = require('./routes/accounts');
+const clients = require('./routes/clients');
+const login = require('./routes/login');
+const history = require('./routes/history');
+const mysql = require("./routes/db")
 
-var app = express();
+const app = express();
 
 
 // uncomment after placing your favicon in /public
@@ -17,7 +18,7 @@ var app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -34,7 +35,7 @@ app.use('/history', history);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
