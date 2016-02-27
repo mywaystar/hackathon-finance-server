@@ -137,7 +137,7 @@ const init_config = (req, res, next) => {
         },
 
         birthdate: {
-          type: Sequelize.STRING,
+          type: Sequelize.DATE,
           field: "Birthdate"
         },
 
@@ -171,8 +171,8 @@ const init_config = (req, res, next) => {
           field: "Profile"
         },
 
-        contract_data: {
-          type: Sequelize.STRING,
+        contract_date: {
+          type: Sequelize.DATE,
           field: "ContractDate"
         },
 
