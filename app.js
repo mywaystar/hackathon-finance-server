@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(mysql.init_config());
+app.use(mysql.init_config);
 
 app.use('/', routes);
 app.use('/users', users);
