@@ -18,6 +18,50 @@ const init_config = (req, res, next) => {
   req.db = {};
   req.db.models = {};
 
+  req.db.models.History = sequelize.define(
+    "AccountsTrackRecordEvolution",  {
+      account_id: {
+        type: Sequelize.STRING,
+        field: "AccountId",
+      },
+
+      date: {
+        type: Sequelize.DATE,
+        field: "Date",
+        primaryKey: true,
+      },
+
+      account_amount: {
+        type: Sequelize.DECIMAL,
+        field: "AccountAmount"
+      },
+
+      account_bench: {
+        type: Sequelize.DECIMAL,
+        field: "BenchAmount"
+      },
+
+      daily_perf: {
+        type: Sequelize.STRING,
+        field: "AccountPerfDaily"
+      },
+
+      daily_bench: {
+        type: Sequelize.STRING,
+        field: "BenchPerfDaily"
+      },
+
+      daily_perf_differ: {
+        type: Sequelize.STRING,
+        field: "DiffPerfDaily"
+      },
+    }, {
+      freezeTableName: true,
+      createdAt: false,
+      deletedAt: false,
+      updatedAt: false
+    });
+
   req.db.models.Account = sequelize.define(
     "Accounts",  {
       account_id: {
