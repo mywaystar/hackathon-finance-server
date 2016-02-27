@@ -51,8 +51,8 @@ router.get('/:client_id/:start/:end', function(req, res, next) {
           AccountId: account_id.replace(/\s/g, ''),
           Date: {
             $between: [
-              new Date(req.params.start),
-              new Date(req.params.end)
+              new Date(parseInt(req.params.start)),
+              new Date(parseInt(req.params.end))
             ]
           }
         }
@@ -104,7 +104,7 @@ router.get('/:client_id/:start', function(req, res, next) {
         where: {
           AccountId: account_id.replace(/\s/g, ''),
           Date: {
-            $gt: new Date(req.params.start)
+            $gt: new Date(parseInt(req.params.start))
           }
         }
       })

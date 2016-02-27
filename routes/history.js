@@ -12,8 +12,8 @@ router.get('/:account_id/:start/:end', function(req, res, next) {
       AccountId: req.params.account_id,
       Date: {
         $between: [
-          new Date(req.params.start),
-          new Date(req.params.end)
+          new Date(parseInt(req.params.start)),
+          new Date(parseInt(req.params.end))
         ]
       }
     },
@@ -40,7 +40,7 @@ router.get('/:account_id/:start', function(req, res, next) {
     where: {
       AccountId: req.params.account_id,
       Date: {
-        $gt: new Date(req.params.start)
+        $gt: new Date(parseInt(req.params.start))
       }
     },
     limit: 1000000
