@@ -75,6 +75,11 @@ const init_config = (req, res, next) => {
         primaryKey: true,
       },
 
+      email: {
+        type: Sequelize.STRING,
+        field: "Email"
+      },
+
       account_initial_date: {
         type: Sequelize.DATE,
         field: "AccountInitialDate"

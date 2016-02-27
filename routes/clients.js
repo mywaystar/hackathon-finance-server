@@ -119,4 +119,9 @@ router.get('/:id/account', [
 );
 
 
-module.exports = router;
+module.exports = {
+  router: router,
+  controllers: {
+    get_client_accounts: get_client_accounts
+  }
+}
