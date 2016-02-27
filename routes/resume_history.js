@@ -67,8 +67,8 @@ router.get('/:client_id/:start/:end', function(req, res, next) {
           if (!response[index_day]) {
             return response[index_day] = {
               date: account_day.date,
-              total_amount: account_day.account_amount,
-              total_bench: account_day.account_bench,
+              account_amount: account_day.account_amount,
+              account_bench: account_day.account_bench,
               daily_perf: account_day.daily_perf,
               daily_bench: account_day.daily_bench,
               daily_perf_differ: account_day.daily_perf_differ,
@@ -77,8 +77,8 @@ router.get('/:client_id/:start/:end', function(req, res, next) {
 
           const day = response[index_day];
 
-          response.total_amount += day.account_amount;
-          response.total_bench += day.account_bench;
+          response.account_amount += day.account_amount;
+          response.account_bench += day.account_bench;
           response.daily_perf += day.daily_perf;
           response.daily_bench += day.daily_bench;
           response.daily_perf_differ += day.daily_perf_differ;
