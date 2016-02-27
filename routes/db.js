@@ -3,9 +3,6 @@
 
 const Sequelize = require("sequelize");
 
-const Accounts_model = require("../models/accounts");
-const Clients_model = require("../models/clients");
-
 const init_config = (req, res, next) => {
   const sequelize = new Sequelize("finance", "root", "", {
     host: "127.0.0.1",
@@ -22,24 +19,146 @@ const init_config = (req, res, next) => {
   req.db.models = {};
 
   req.db.models.Account = sequelize.define(
-  "Accounts",  Accounts_model.model, Accounts_model.config
-  );
+    "Accounts",  {
+      account_id: {
+        type: Sequelize.STRING,
+        field: "AccountId",
+        primaryKey: true,
+      },
 
-  req.db.models.Client = sequelize.define(
-  "Clients",  Clients_model.model, Accounts_model.config
-  );
+      account_id: {
+        type: Sequelize.INTEGER,
+        field: "ClientId",
+      },
 
-  req.db.models.Account.belongsTo(req.db.models.Client, {
-    as: "client_data"
-  })
+      account_initial_date: {
+        type: Sequelize.DATE,
+        field: "AccountInitialDate"
+      },
 
-  const user = req.db.models.Account.findOne()
-  .then((user) => {
-    console.log("USER: ", user)
-    return Promise.resolve();
-  })
+      account_initial_amount: {
+        type: Sequelize.INTEGER,
+        field: "AccountInitialAmount"
+      },
 
-  next();
+      account_final_amount: {
+        type: Sequelize.INTEGER,
+        field: "AccountFinalAmount"
+      },
+
+      account_type: {
+        type: Sequelize.STRING,
+        field: "AccountType"
+      },
+
+      account_profile: {
+        type: Sequelize.STRING,
+        field: "AccountProfile"
+      }
+    }, {
+      freezeTableName: true,
+      createdAt: false,
+      deletedAt: false,
+      updatedAt: false
+    });
+
+
+    req.db.models.Client = sequelize.define(
+      "ClientsDetailed", {
+        client_id: {
+          type: Sequelize.INTEGER,
+          field: "ClientId",
+          primaryKey: true,
+        },
+
+
+        last_name: {
+          type: Sequelize.STRING,
+          field: "Lastname"
+        },
+
+        first_name: {
+          type: Sequelize.STRING,
+          field: "Firstname"
+        },
+
+        sexe: {
+          type: Sequelize.STRING,
+          field: "Sexe"
+        },
+
+        birthdate: {
+          type: Sequelize.STRING,
+          field: "Birthdate"
+        },
+
+        type: {
+          type: Sequelize.STRING,
+          field: "Type"
+        },
+
+        job: {
+          type: Sequelize.STRING,
+          field: "Job"
+        },
+
+        company: {
+          type: Sequelize.STRING,
+          field: "Company"
+        },
+
+        children: {
+          type: Sequelize.STRING,
+          field: "Children"
+        },
+
+        region: {
+          type: Sequelize.STRING,
+          field: "Region"
+        },
+
+        profile: {
+          type: Sequelize.STRING,
+          field: "Profile"
+        },
+
+        contract_data: {
+          type: Sequelize.STRING,
+          field: "ContractDate"
+        },
+
+        total: {
+          type: Sequelize.STRING,
+          field: "Total"
+        },
+
+        number_accounts: {
+          type: Sequelize.INTEGER,
+          field: "Accounts"
+        },
+
+        account_id_1: {
+          type: Sequelize.STRING,
+          field: "Account1Id"
+        },
+
+        account_id_2: {
+          type: Sequelize.STRING,
+          field: "Account2Id"
+        },
+
+        account_id_3: {
+          type: Sequelize.STRING,
+          field: "Account3Id"
+        }
+      }, {
+        freezeTableName: true,
+        createdAt: false,
+        deletedAt: false,
+        updatedAt: false
+      });
+
+      return next();
 }
 
 
