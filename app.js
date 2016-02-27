@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var accounts = require('./routes/accounts');
 var clients = require('./routes/clients');
+var login = require('./routes/login');
 var mysql = require("./routes/db")
 
 var app = express();
@@ -27,6 +28,7 @@ app.use(mysql.init_config);
 
 app.use('/account', accounts);
 app.use('/client', clients);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
