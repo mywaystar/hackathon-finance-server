@@ -5,19 +5,20 @@ const express = require('express');
 const router = express.Router();
 
 const get_client = function(req, res, next) {
-  console.log("client req: ", req.params)
 
-  req.db.models.Client.findOne({
+  return req.db.models.Client.findOne({
     where: {
       ClientId: req.params.id
     }
-  }, (account, err) => {
-    if (err) {
-      console.log("error: ", err)
-    }
-    requ.Query = account;
+  })
+  .then((account) => {
+    req.Query = account;
     next();
-  });
+    return Promise.resolve();
+  })
+  .catch((reason) => {
+    console.log(reason);
+  })
 }
 
 const get_client_accounts = function(req, res, next) {
@@ -26,50 +27,49 @@ const get_client_accounts = function(req, res, next) {
     res.json("Fail overflow!");
   }
 
-  const data = req.Query.accounts;
+  const data = req.Query.dataValues;
 
-  req.Query.accounts = [];
+  data.accounts = [];
 
-  this.retrieve_account(data.account_id_1, (account, err) => {
-    if (err) {
-      res.status(500);
-      return res.send("Fail commodor!")
-    }
+
+  return Promise.resolve()
+  .then(() => {
+    return retrieve_account(req, data.account_id_1);
+  })
+  .then((account) => {
     if (account) {
       data.accounts.push(account);
     }
-    this.retrieve_account(data.account_id_2, (account, err) => {
-      if (err) {
-        res.status(500);
-        return res.send("Fail commodor!")
-      }
-      if (account) {
-        data.accounts.push(account);
-      }
-      this.retrieve_account(data.account_id_2, (account, err) => {
-        if (err) {
-          res.status(500);
-          return res.send("Fail commodor!")
-        }
-        if (account) {
-          data.accounts.push(account);
-        }
-        next();
-      })
-    })
+    return retrieve_account(req, data.account_id_2);
+  })
+  .then((account) => {
+    if (account) {
+      data.accounts.push(account);
+    }
+    return retrieve_account(req, data.account_id_3);
+  })
+  .then((account) => {
+    if (account) {
+      data.accounts.push(account);
+    }
+    next();
+    return Promise.resolve();
+  })
+  .catch((reason) => {
+    console.log(reason);
   })
 }
 
-const retrieve_account = function(account_id, cb) {
+const retrieve_account = function(req, account_id) {
   if (!account_id) {
-    return Promise.resolve();
+    return Promise.resolve(null);
   }
 
-  req.db.models.Account.findOne({
+  return req.db.models.Account.findOne({
     where: {
       AccountId: account_id
     }
-  }, cb);
+  });
 }
 
 

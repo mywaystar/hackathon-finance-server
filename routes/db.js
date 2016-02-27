@@ -26,11 +26,6 @@ const init_config = (req, res, next) => {
         primaryKey: true,
       },
 
-      account_id: {
-        type: Sequelize.INTEGER,
-        field: "ClientId",
-      },
-
       account_initial_date: {
         type: Sequelize.DATE,
         field: "AccountInitialDate"
