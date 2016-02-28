@@ -5,8 +5,6 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/:account_id/:start/:end', function(req, res, next) {
-  let response;
-
   return req.db.models.History.findAll({
     where: {
       AccountId: req.params.account_id,
@@ -34,8 +32,6 @@ router.get('/:account_id/:start/:end', function(req, res, next) {
 })
 
 router.get('/:account_id/:start', function(req, res, next) {
-  let response;
-
   return req.db.models.History.findAll({
     where: {
       AccountId: req.params.account_id,
