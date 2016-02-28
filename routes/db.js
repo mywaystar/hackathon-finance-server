@@ -67,6 +67,30 @@ const init_config = (req, res, next) => {
         updatedAt: false
       });
 
+      req.db.models.Isin_history = sequelize.define(
+        "ProductTrackRecordEvolution",  {
+          isin: {
+            type: Sequelize.STRING,
+            field: "ISIN",
+          },
+
+          date: {
+            type: Sequelize.STRING,
+            field: "Date",
+            primaryKey: true,
+          },
+
+          value: {
+            type: Sequelize.DECIMAL,
+            field: "Value"
+          },
+        }, {
+          freezeTableName: true,
+          createdAt: false,
+          deletedAt: false,
+          updatedAt: false
+        });
+
       req.db.models.Account = sequelize.define(
         "Accounts",  {
           account_id: {

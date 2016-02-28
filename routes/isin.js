@@ -4,6 +4,27 @@
 const express = require('express');
 const router = express.Router();
 
+router.get('/history/:isin/', function(req, res, next) {
+  return req.db.models.Isin_history.findAll({
+    where: {
+      ISIN: req.params.isin,
+    },
+    order: 'Date DESC',
+    limit: 10
+  })
+
+  .then((isin_history) => {
+    if (!isin_history) {
+      res.status(300);
+      res.send("Invalid parameters");
+      return Promise.reject("FAIL");
+    }
+
+    res.status(200).json(isin_history);
+    return Promise.resolve();
+  })
+});
+
 router.get('/:isin/', function(req, res, next) {
   return req.db.models.Isin_data.findOne({
     where: {
