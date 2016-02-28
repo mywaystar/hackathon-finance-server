@@ -4,6 +4,26 @@
 const express = require('express');
 const router = express.Router();
 
+router.get('/:isin/', function(req, res, next) {
+  return req.db.models.Isin.findOne({
+    where: {
+      ISIN: req.params.isin,
+    },
+  })
+  .then((isin_data) => {
+    if (!isin_data) {
+      res.status(300);
+      res.send("Invalid parameters");
+      return Promise.reject("FAIL");
+    }
+
+    res.status(200).json(isin_data);
+    return Promise.resolve();
+  })
+
+});
+
+
 
 router.get('/:account_id/:start/:end', function(req, res, next) {
   return req.db.models.Isin.findAll({
@@ -26,25 +46,26 @@ router.get('/:account_id/:start/:end', function(req, res, next) {
       return Promise.reject("FAIL");
     }
 
-    const response = result.reduce((array, elem) => {
-      if (!array[elem.dataValues.isin]) {
-        array[elem.dataValues.isin] = [];
+    const response = result.reduce((object, elem) => {
+      if (!object[elem.dataValues.isin]) {
+        object[elem.dataValues.isin] = [];
       }
-      array[elem.dataValues.isin].push(elem.dataValues);
-      return array;
-    }, []);
+      object[elem.dataValues.isin].push(elem.dataValues);
+      return object;
+    }, {});
 
     return Promise.resolve(response);
   })
 
   .then((response) => {
-    console.log("RES: ", response)
-    res.status(200).json(response);
+    res.status(200);
+    res.send(JSON.stringify(response));
     return Promise.resolve();
   })
   .catch((reason) => {
     console.log("error: ", reason)
   })
 });
+
 
 module.exports = router;
