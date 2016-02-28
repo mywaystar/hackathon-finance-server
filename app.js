@@ -8,7 +8,9 @@ const accounts = require('./routes/accounts');
 const clients = require('./routes/clients');
 const login = require('./routes/login');
 const history = require('./routes/history');
+const isin = require('./routes/isin');
 const resume_history = require('./routes/resume_history');
+
 const mysql = require("./routes/db")
 
 const app = express();
@@ -34,6 +36,7 @@ app.use('/client/resume', resume_history);
 app.use('/client', clients.router);
 app.use('/login', login);
 app.use('/history', history);
+app.use('/isin', isin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
