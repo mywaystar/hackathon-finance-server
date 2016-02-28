@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/:isin/', function(req, res, next) {
-  return req.db.models.Isin.findOne({
+  return req.db.models.Isin_data.findOne({
     where: {
       ISIN: req.params.isin,
     },

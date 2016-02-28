@@ -107,6 +107,76 @@ const init_config = (req, res, next) => {
         });
 
 
+        req.db.models.Isin_data = sequelize.define(
+          "Products", {
+            isin: {
+              type: Sequelize.STRING,
+              field: "ISIN",
+              primaryKey: true
+            },
+
+            name: {
+              type: Sequelize.STRING,
+              field: "Name",
+            },
+
+            type: {
+              type: Sequelize.STRING,
+              field: "Type",
+            },
+
+            pea: {
+              type: Sequelize.STRING,
+              field: "PEA",
+            },
+
+            asv: {
+              type: Sequelize.STRING,
+              field: "ASV",
+            },
+
+            cto: {
+              type: Sequelize.STRING,
+              field: "CTO",
+            },
+
+            asset_class1: {
+              type: Sequelize.STRING,
+              field: "AssetClass",
+            },
+
+            zone: {
+              type: Sequelize.STRING,
+              field: "Zone",
+            },
+
+            focus: {
+              type: Sequelize.STRING,
+              field: "Focus",
+            },
+
+            devise: {
+              type: Sequelize.STRING,
+              field: "Devise",
+            },
+
+            management: {
+              type: Sequelize.STRING,
+              field: "Management",
+            },
+
+            description: {
+              type: Sequelize.STRING,
+              field: "Description",
+            },
+          }, {
+            freezeTableName: true,
+            createdAt: false,
+            deletedAt: false,
+            updatedAt: false
+          });
+
+
         req.db.models.Isin = sequelize.define(
           "AccountsTrackRecordCompositionAmounts", {
             account_id: {
